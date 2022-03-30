@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It's very basic, and our goal is to extend this application to allow a patient to see some of their health data displayed in a dashboard.
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It's very basic, and our goal is to extend this application to allow a patient to see some of their health data displayed in a dashboard. 
 
 ## Getting Started
 

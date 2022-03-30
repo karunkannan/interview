@@ -14,7 +14,7 @@ export default function Dashboard() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.container}>
-        
+        Your output will go here
       </div>
     </>
   )

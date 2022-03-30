@@ -33,7 +33,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to Thatch, {patientData.firstName} {patientData.lastName}!
         </h1>
-        <p>
+        <p className={styles.link}>
           <Link href="/dashboard">View your patient dashboard</Link>
         </p>
       </main>
