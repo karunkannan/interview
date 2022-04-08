@@ -3,8 +3,6 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
 export default function Dashboard(props) {
-  console.log(props);
-
   return (
     <>
       <Head>
@@ -50,7 +48,6 @@ export async function getServerSideProps() {
         .map((element) => element.resource)
         .map((resource) => {
           // Use find rather than filter since we are guaranteed a single ICD9 code.
-          // TODO: ask to see if this assumption is true.
           const displayName = resource.code.coding.find(
             (code) => code.system === ICD_SYSTEM_ID
           ).display;
