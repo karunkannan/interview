@@ -1,11 +1,10 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import Head from "next/head";
 
-import styles from '../styles/Home.module.css'
+import styles from "../styles/Home.module.css";
 
-export default function Dashboard() {
-  
+export default function Dashboard(props) {
+  console.log(props);
+
   return (
     <>
       <Head>
@@ -14,8 +13,51 @@ export default function Dashboard() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.container}>
-        Your output will go here
+        <table>
+          <thead>
+            <tr>
+              <th>ICD-9 Display Name</th>
+              <th>Onset Date</th>
+              <th>Recorded Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.data.map((row) => (
+              <tr key={row[0]}>
+                {row.map((el, idx) => (
+                  <td key={idx}>{el}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
-  )
+  );
+}
+
+export async function getServerSideProps() {
+  const ICD_SYSTEM_ID = "http://hl7.org/fhir/sid/icd-9-cm/diagnosis";
+
+  const data = await fetch(
+    "https://api.thatchhealth.com/example/conditions"
+  ).then((response) => response.json());
+
+  return {
+    props: {
+      // extract only the rendered data.
+      data: data.entry
+        .map((element) => element.resource)
+        .map((resource) => {
+          // Use find rather than filter since we are guaranteed a single ICD9 code.
+          // TODO: ask to see if this assumption is true.
+          const displayName = resource.code.coding.find(
+            (code) => code.system === ICD_SYSTEM_ID
+          ).display;
+          const onsetDateTime = resource.onsetDateTime;
+          const dateRecorded = resource.dateRecorded;
+          return [displayName, onsetDateTime, dateRecorded];
+        }),
+    },
+  };
 }
